@@ -1,0 +1,32 @@
+﻿<script src="@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")"></script>
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/themes/base/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jqueryui")
+@{
+    ViewBag.Title = "Index";
+}
+<br/>
+<p>Inventory</p> <input type="text" class="form-control" id="inventory" />
+<br/>
+<p>Quantity</p> <input type="text" class="form-control" id="quantity" />
+<br />
+<p>Depart</p> <input type="text" class="form-control" id="department"  />
+<br />
+<p>Need by</p> <input type="text" class="form-control" id="needDate" />
+<br/>
+
+<button class=".btn-default" id="btnsubmit" >Submit</button>
+@Scripts.Render("~/bundles/jquery")
+
+<script>
+    $("#needDate").datepicker();
+
+</script>
+
+
+
+
+
