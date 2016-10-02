@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Index";
 }
+<form method="post">
 <br/>
 <p>Inventory</p> <input type="text" class="form-control" id="inventory" />
 <br/>
@@ -15,9 +16,11 @@
 <p>Need by</p> <input type="text" class="form-control" id="needDate" />
 <br/>
 
-<button class=".btn-default" id="btnsubmit" >Submit</button>
+    @Html.ActionLink("Submit", "Create", "Order")
 
+<button class=".btn-default" id="btnsubmit" onclick="location.href='@Url.Action("Create", "Order")'">Submit</button>
 
+</form>
 <script>
     $("#needDate").datepicker({ inline: false });
 
