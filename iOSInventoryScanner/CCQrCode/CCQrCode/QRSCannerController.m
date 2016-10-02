@@ -6,9 +6,10 @@
 //  Copyright © 2016 Ayush Sanyal. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "QRSCannerController.h"
 #import "QRCodeReaderViewController.h"
-@interface ViewController ()
+
+@interface QRSCannerController ()
 
 @property (strong, nonatomic) AVCaptureDevice* device;
 @property (strong, nonatomic) AVCaptureDeviceInput* input;
@@ -18,7 +19,9 @@
 
 @end
 
-@implementation ViewController
+@implementation QRSCannerController
+
+bool test = false;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,15 +57,23 @@
     //[reader setCompletionWithBlock:^(NSString *resultAsString) {
     //    NSLog(@"%@", resultAsString);
     //}];
-    [self presentViewController:vc animated:YES completion:NULL];
+    
+    if(!test){
+        test = true;
+        [self performSegueWithIdentifier:@"ShowForm" sender:self];
+        //[self presentViewController:vc animated:YES completion:NULL];
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    /*[self dismissViewControllerAnimated:YES completion:^{
+        [self performSegueWithIdentifier:@"ShowForm" sender:self];
+    }]*/;/*
     if([self isCameraAvailable]) {
         [self setupScanner];
-    }
+    }*/
 }
 
 - (void)didReceiveMemoryWarning
@@ -224,9 +235,10 @@
 - (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
 {
     [self dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"%@", result);
+        [self performSegueWithIdentifier:@"ShowForm" sender:self];
     }];
 }
+
 
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader
 {

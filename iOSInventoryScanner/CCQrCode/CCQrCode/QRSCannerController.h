@@ -18,11 +18,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import "QRCodeReaderDelegate.h"
 
-@protocol ViewControllerDelegate;
+@protocol QRSCannerControllerDelegate;
 
-@interface ViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate,QRCodeReaderDelegate>
+@interface QRSCannerController : UIViewController <AVCaptureMetadataOutputObjectsDelegate,QRCodeReaderDelegate>
 
-@property (nonatomic, weak) id<ViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<QRSCannerControllerDelegate> delegate;
 
 @property (assign, nonatomic) BOOL touchToFocusEnabled;
 
@@ -33,11 +33,11 @@
 
 @end
 
-@protocol ViewControllerDelegate <NSObject>
+@protocol QRSCannerControllerDelegate <NSObject>
 
 @optional
 
-- (void) scanViewController:(ViewController *) aCtler didTapToFocusOnPoint:(CGPoint) aPoint;
-- (void) scanViewController:(ViewController *) aCtler didSuccessfullyScan:(NSString *) aScannedValue;
+- (void) scanViewController:(UIViewController *) aCtler didTapToFocusOnPoint:(CGPoint) aPoint;
+- (void) scanViewController:(UIViewController *) aCtler didSuccessfullyScan:(NSString *) aScannedValue;
 
 @end
