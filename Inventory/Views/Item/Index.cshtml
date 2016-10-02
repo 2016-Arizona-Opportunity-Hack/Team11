@@ -13,7 +13,13 @@
 <table class="table table-condensed table-hover">
 <thead>
     <tr>
-        <th data-gridcolumn="Name" data-gridfilter="false" title="Item ID; click to sort">Name</th>
+        <th data-gridcolumn="=Name" data-gridfilter="false" title="Item Name; click to sort">Name</th>
+        <th data-gridcolumn="=Name" data-gridfilter="false" title="Category Name; click to sort">Item Category</th>
+        <th data-gridcolumn="=Name" data-gridfilter="false" title="Price; click to sort">Price</th>
+        <th data-gridcolumn="=Name" data-gridfilter="false" title="Low limit; click to sort">LowLimit</th>
+        <th data-gridcolumn="=Name" data-gridfilter="false" title="Gender; click to sort">Gender</th>
+        <th data-gridcolumn="=Name" data-gridfilter="false" title="Size; click to sort">Size</th>
+        <th data-gridcolumn="=Name" data-gridfilter="false" title="Age; click to sort">Age</th>
         <th class="action-header text-center">
             <span data-original-title="Help" data-placement="top"
                   data-toggle="popover" data-trigger="click hover focus"
@@ -30,10 +36,28 @@
                 <td>
                     @Html.DisplayFor(c => item.Name)
                 </td>
+                <td>
+                    @Html.DisplayFor(c => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(c => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(c => item.LowLimit)
+                </td>
+                <td>
+                    @Html.DisplayFor(c => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(c => item.Size)
+                </td>
+                <td>
+                    @Html.DisplayFor(c => item.Age)
+                </td>
                 <td class="btn-toolbar-cell">                    
                         <div class="btn-toolbar hover-toolbar">
                             <div class="btn-group">
-                                <a class="btn btn-default btn-xs" href="@Url.Action("Edit", new { id = item.Name })" title="Edit Item"><i class="fa fa-pencil">Edit</i></a>
+                                <a class="btn btn-default btn-xs" href="@Url.Action("Edit", new { id = item.ItemId })" title="Edit Item"><i class="fa fa-pencil">Edit</i></a>
                            </div>
                         </div>                    
                 </td>
@@ -42,4 +66,3 @@
     </tbody>
 </table>    
 
-<button class=".btn-default" id="btnsubmit">Submit</button>

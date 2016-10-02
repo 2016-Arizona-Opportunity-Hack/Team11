@@ -1,0 +1,60 @@
+﻿@model Inventory.ViewModels.InventoryIndex
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-sm-1 col-xs-2">Item</div>
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.ItemName, new { @class = "col-sm-10 col-xs-10", disabled = true })
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-1 col-xs-2">Gender</div>
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.ItemGender, new { @class = "col-sm-10 col-xs-10", disabled = true })
+        
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-1 col-xs-2">Size</div>
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.ItemSize, new { @class = "col-sm-10 col-xs-10", disabled = true })
+        @Html.ValidationMessageFor(model => model.ItemSize)
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-1 col-xs-2">Age</div>
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.ItemAge, new { @class = "col-sm-10 col-xs-10", disabled = true })
+        @Html.ValidationMessageFor(model => model.ItemAge)
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-1 col-xs-2">Location</div>
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.LocationName, new { @class = "col-sm-10 col-xs-10", disabled = true })
+        @Html.ValidationMessageFor(model => model.LocationName)
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-1 col-xs-2">Quantity</div>
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.Quantity, new { @class = "col-sm-10 col-xs-10" })
+        @Html.ValidationMessageFor(model => model.Quantity)
+    </div>
+</div>
+<br />
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10 form-btns">
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i>
+                <span>Save</span>
+        </button>
+        <a href="@Url.Action("Index", "Inventory")" class="btn btn-default"><i class="fa fa-times"></i><span>Cancel</span></a>
+    </div>
+</div>

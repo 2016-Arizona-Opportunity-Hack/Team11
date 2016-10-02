@@ -3,13 +3,55 @@
     ViewBag.Title = "Index";
 }
 <div class="form-group">
-    @Html.LabelFor(model => model.ItemId, new { @class = "col-sm-2 control-label" })
+    @Html.LabelFor(model => model.CategoryId, new { @class = "col-sm-2 control-label" })
     <div class="col-sm-7">
-        @Html.TextBoxFor(model => model.ItemId, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.ItemId)
+        @Html.TextBoxFor(model => model.CategoryId, new { @class = "form-control" })
+      //  @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categories, "CategoryId", "CategoryName", Model.CategoryId), new { @class = "singleSelect" })
+        @Html.ValidationMessageFor(model => model.CategoryId)
     </div>
 </div>
-
+<div class="form-group">
+    @Html.LabelFor(model => model.Name, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(model => model.Price, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Price)
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(model => model.LowLimit, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.LowLimit, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.LowLimit)
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(model => model.Gender, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.Gender, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Gender)
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(model => model.Age, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.Age, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Age)
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(model => model.Size, new { @class = "col-sm-2 control-label" })
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.Size, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Size)
+    </div>
+</div>
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10 form-btns">
@@ -24,6 +66,6 @@
                 <span>Save</span>
             }
         </button>
-        <a href="@Url.Action("Index", "Category")" class="btn btn-default"><i class="fa fa-times"></i><span>Cancel</span></a>
+        <a href="@Url.Action("Index", "Item")" class="btn btn-default"><i class="fa fa-times"></i><span>Cancel</span></a>
     </div>
 </div>

@@ -1,60 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MySql.Data.MySqlClient;
+using Inventory.Models;
+using Inventory.ViewModels;
 
 namespace Inventory.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : BaseController
     {
         // GET: Order
         public ActionResult Index()
         {
-            return View();
-        }
+            var mconn = CreateConnection();
 
-      
-        public String Create()
-        {
-            string strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
-            //string id, name;
-            MySqlConnection mconn = new MySqlConnection(strConnString);
-            mconn.Open();
+            var result = new List<OrderIndex>();
 
-            MySqlCommand command = mconn.CreateCommand();
-            command.CommandText = "select * from Categories";
-            MySqlDataReader reader = command.ExecuteReader();
-            String result=null;
-            while (reader.Read())
+            try
             {
-                result = result + reader.GetString(0);
-                //reader["column_name"].ToString()
+                mconn.Open();
+
+                MySqlCommand command = mconn.CreateCommand();
+                command.CommandText = "Select O.OrderId, O.DepartmentId, O.LocationId, O.IsFulfilled, O.NeedByDate, L.Name AS LocationName, D.Name AS DepartmentName From Orders O " +
+                                         "Left Join Locations L on (O.LocationId = L.LocationId) " +
+                                         "Left Join Departments D on (O.DepartmentId = D.DepartmentId)";
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                   var order = new Order
+                    {
+                        OrderId = reader.GetInt32("OrderId"),
+                        DepartmentId = reader.GetInt32("DepartmentId"),
+                        LocationId = reader.GetInt32("LocationId"),
+                        IsFulfilled = reader.GetBoolean("IsFulfilled"),
+                        NeedByDate = Convert.ToDateTime(reader.GetMySqlDateTime("NeedByDate"))
+                    };
+
+                    result.Add(new OrderIndex()
+                    {  Order = order,
+                       LocationName = reader.GetString("LocationName"),
+                       DepartmentName = reader.GetString("DepartmentName")
+                    });
+                }
+                reader.Close();
             }
-            
-            reader.Close();
-            return result;
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                if (mconn.State == System.Data.ConnectionState.Open)
+                    mconn.Close();
+            }
+            return View(result);
         }
 
 
-              
-    
+        public ActionResult Create()
+        {
+            var NewCreateOrder = new OrderCreate(){ Order = new Order { IsFulfilled = false } };
 
-//        [HttpPost]
-//        public ActionResult Create([Bind(Include = "Name,IsEnabled,SequenceNumber,Description")] Category category)
-//        {
-//            //if (!ModelState.IsValid)
-//            //    return View(category);
-//
-//            //category.Name = category.Name.NullTrim();
-//            //category.Description = category.Description.NullTrim();
-//
-//            //_db.Categories.Add(category);
-//            //_db.SaveChanges();
-//
-//            //return RedirectToAction("Index");
-//        }
+            var mconn = CreateConnection();
+
+            try
+            {
+                mconn.Open();
+                NewCreateOrder.Departments = GetDepartments(mconn);
+                NewCreateOrder.Locations = GetLocations(mconn);    
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                if (mconn.State == System.Data.ConnectionState.Open)
+                    mconn.Close();
+            }
+
+            return View(NewCreateOrder);
+        }
+
+        public ActionResult Details()
+        {
+           return View();
+        }
     }
 }

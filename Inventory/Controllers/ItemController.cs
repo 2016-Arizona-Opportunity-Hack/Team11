@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace Inventory.Controllers
 {
-    public class ItemController : Controller
+    public class ItemController : BaseController
     {
 
         // GET: /Category/
@@ -20,14 +20,10 @@ namespace Inventory.Controllers
 
             MySqlCommand command = mconn.CreateCommand();
             command.CommandText = "select * from Items";
-            MySqlDataReader reader = command.ExecuteReader();
-            var result = new List<Item>();
-            while (reader.Read())
-            {
-                result.Add(new Item() { CategoryId = reader.GetInt32(0), ItemId = reader.GetInt32(1), Name = reader.GetString(2), Gender = reader.GetString(3), Size = reader.GetString(4), Age = reader.GetString(5), LowLimit = reader.GetInt32(6), Price = reader.GetDecimal(7)});
-            }
+            //MySqlDataReader reader = command.ExecuteReader();
+            var result = GetItems(mconn);
 
-            reader.Close();
+            //reader.Close();
             return View(result);
         }
 
@@ -38,22 +34,23 @@ namespace Inventory.Controllers
             MySqlConnection mconn = new MySqlConnection(strConnString);
             mconn.Open();
 
+            var item = new Item();
+            item.Categories = GetCategories(mconn);
+
             MySqlCommand command = mconn.CreateCommand();
             command.CommandText = "select * from Items where ItemId = " + id;
             MySqlDataReader reader = command.ExecuteReader();
-            
-            var item = new Item();
-
+                   
             while (reader.Read())
             {
-                item.CategoryId = reader.GetInt32(0);
-                item.ItemId = reader.GetInt32(1);
-                item.Name = reader.GetString(2);
-                item.Gender = reader.GetString(3);
-                item.Size = reader.GetString(4);
-                item.Age = reader.GetString(5);
-                item.LowLimit = reader.GetInt32(6);
-                item.Price = reader.GetDecimal(7);
+                item.CategoryId = reader.GetInt32("CategoryId");
+                item.ItemId = reader.GetInt32("ItemId");
+                item.Name = reader.GetString("Name");
+                item.Gender = reader.GetString("Gender");
+                item.Size = reader.GetString("Size");
+                item.Age = reader.GetString("Age");
+                item.LowLimit = reader.GetInt32("LowLimit");
+                item.Price = reader.GetDecimal("Price");
             }
 
             reader.Close();
@@ -63,6 +60,11 @@ namespace Inventory.Controllers
         public ActionResult Create()
         {
             var newItem = new Item();
+            var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
+            MySqlConnection mconn = new MySqlConnection(strConnString);
+            mconn.Open();
+            newItem.Categories = GetCategories(mconn);
+            newItem.IsDeleted = 0;
             return View(newItem);
         }
 
@@ -79,14 +81,22 @@ namespace Inventory.Controllers
             try
             {
                 mconn.Open();
-
+                String outi = "Hi " + item.Name + item.CategoryId;
                 MySqlCommand command = mconn.CreateCommand();
-                command.CommandText = "Insert into Items (ItemId) values ('"+item.ItemId+"')";
+                command.CommandText = "INSERT INTO Items (CategoryId, Name, Price, "
+                                    + "LowLimit, Gender, Age, Size, ModifiedBy, "
+                                    + "Timestamp, IsDeleted) "
+                                    + "values ("+item.CategoryId+", "+item.Name+", "+item.Price
+                                    + ", "+item.LowLimit+", "+item.Gender+"', '"+item.Age+"' , '"+item.Size
+                                    + "', "+item.ModifiedBy+", "+item.Timestamp+", "+item.IsDeleted+");"; 
                 var output=command.ExecuteNonQuery();
                 if (output != 1) {
+                    Console.Out.Write("Fail to write item");
                 }
             }
-            catch (Exception e) { }
+            catch (Exception e) {               
+                Console.Out.Write("Fail to write item");               
+            }
             finally {
                 if (mconn.State == System.Data.ConnectionState.Open)
                     mconn.Close();
@@ -108,7 +118,9 @@ namespace Inventory.Controllers
                 mconn.Open();
 
                 MySqlCommand command = mconn.CreateCommand();
-                command.CommandText = "select count(*) from Items where ItemId = " + item.ItemId;
+                command.CommandText = "select count(*) from Items where Name = " + item.Name 
+                    + " AND CategoryId = " +item.CategoryId + " AND Age = "+item.Age+" AND "
+                    + "Size = " + item.Size + " AND Gender = "+item.Gender+")";
 
                int rowscount = Convert.ToInt32(command.ExecuteScalar());
                
@@ -147,7 +159,10 @@ namespace Inventory.Controllers
                 mconn.Open();
 
                 MySqlCommand command = mconn.CreateCommand();
-                command.CommandText = "Update Items Set Name = '" + item.Name + "' Where ItemId = " + item.ItemId;
+                command.CommandText = "Update Items Set Name = '" + item.Name + "', CategoryId = " + item.CategoryId + ", "
+                                     +"Price = " + item.Price + ", LowLimit = " + item.LowLimit +", "
+                                     +"Age = '" + item.Age + "', Gender = '" + item.Gender + "', Size = '" + item.Size + "' "
+                                    + " Where ItemId = " + item.ItemId;
                 var output = command.ExecuteNonQuery();
                 if (output != 1)
                 {
