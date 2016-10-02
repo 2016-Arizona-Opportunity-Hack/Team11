@@ -23,7 +23,7 @@ namespace Inventory.Controllers
             return result;
         }
 
-        public List<Models.Inventory> GetInventories(MySqlConnection mconn)
+        public List<ViewModels.InventoryIndex> GetInventories(MySqlConnection mconn)
         {
             MySqlCommand command = mconn.CreateCommand();
             command.CommandText = "SELECT Inventory.InventoryId, Inventory.ItemId, Inventory.LocationId, "
@@ -32,10 +32,10 @@ namespace Inventory.Controllers
                                     + "INNER JOIN Locations ON Locations.LocationId = Inventory.LocationId";
 
             MySqlDataReader reader = command.ExecuteReader();
-            var inventories = new List<Inventory.Models.Inventory>();
+            var inventories = new List<ViewModels.InventoryIndex>();
             while (reader.Read())
             {
-                inventories.Add(new Inventory.Models.Inventory()
+                inventories.Add(new ViewModels.InventoryIndex()
                 {
                     InventoryId = reader.GetInt32(0),
                     ItemId = reader.GetInt32(1),

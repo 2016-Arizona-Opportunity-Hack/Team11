@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Inventory.Models
+namespace Inventory.ViewModels
 {
-    public class Inventory
+    public class InventoryIndex
     {
         public int InventoryId { get; set; }
         public int ItemId { get; set; }

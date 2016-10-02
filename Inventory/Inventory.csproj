@@ -216,9 +216,9 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CcUserRole.cs" />
-    <Compile Include="Models\InventoryViewModel.cs" />
+    <Compile Include="ViewModels\InventoryCreate.cs" />
     <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\Inventory.cs" />
+    <Compile Include="ViewModels\InventoryIndex.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -317,8 +317,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Inventory\About.cshtml" />
-    <Content Include="Views\Inventory\Contact.cshtml" />
     <Content Include="Views\Inventory\_Edit.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
