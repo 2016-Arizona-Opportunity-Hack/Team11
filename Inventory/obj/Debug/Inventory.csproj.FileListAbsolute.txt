@@ -80,3 +80,5 @@ c:\users\dhire\documents\visual studio 2015\Projects\Inventory\Inventory\bin\Mic
 c:\users\dhire\documents\visual studio 2015\Projects\Inventory\Inventory\obj\Debug\Inventory.csprojResolveAssemblyReference.cache
 c:\users\dhire\documents\visual studio 2015\Projects\Inventory\Inventory\obj\Debug\Inventory.dll
 c:\users\dhire\documents\visual studio 2015\Projects\Inventory\Inventory\obj\Debug\Inventory.pdb
+C:\Users\dhire\Documents\Visual Studio 2015\Projects\Inventory\Inventory\bin\MySql.Data.dll
+C:\Users\dhire\Documents\Visual Studio 2015\Projects\Inventory\Inventory\bin\MySql.Data.Entity.EF6.dll

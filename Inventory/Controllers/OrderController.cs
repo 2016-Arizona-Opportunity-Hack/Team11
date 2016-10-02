@@ -14,7 +14,7 @@ namespace Inventory.Controllers
             return View();
         }
 
-        
+        /*
         public ActionResult Create()
         {
             var category = new Category
@@ -24,9 +24,9 @@ namespace Inventory.Controllers
 
             return View(category);
         }
-
-        [HttpPost]
-        public ActionResult Create([Bind(Include = "Name,IsEnabled,SequenceNumber,Description")] Category category)
+        */
+        //[HttpPost]
+        /*public ActionResult Create( Category category)
         {
             //if (!ModelState.IsValid)
             //    return View(category);
@@ -38,6 +38,6 @@ namespace Inventory.Controllers
             //_db.SaveChanges();
 
             //return RedirectToAction("Index");
-        }
+        }*/
     }
 }
