@@ -9,7 +9,7 @@
 
 @using (Html.BeginForm("Edit", "Item", FormMethod.Post, new { @class = "form-horizontal" }))
 {
-    @Html.HiddenFor(model => model.Name)
+    @Html.HiddenFor(model => model.ItemId)
     @Html.Partial("_Edit")
 }
 

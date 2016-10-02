@@ -30,37 +30,39 @@ namespace Inventory.Controllers
             return result;
         }
 
-        public List<ViewModels.InventoryIndex> GetInventories(MySqlConnection mconn)
+public List<ViewModels.InventoryIndex> GetInventories(MySqlConnection mconn)
+{
+    MySqlCommand command = mconn.CreateCommand();
+    command.CommandText = "SELECT Inventory.InventoryId, Inventory.ItemId, Inventory.LocationId, "
+                            + "Inventory.Quantity, 	Items.Name AS ItemName,	Locations.Name AS LocationName, "
+                            + "Items.Gender AS ItemGender, Items.Size AS ItemSize, Items.Age AS ItemAge "
+                            + "FROM Inventory INNER JOIN Items ON Items.ItemId = Inventory.ItemId "
+                            + "INNER JOIN Locations ON Locations.LocationId = Inventory.LocationId";
+
+    MySqlDataReader reader = command.ExecuteReader();
+    var inventories = new List<ViewModels.InventoryIndex>();
+    while (reader.Read())
+    {
+        inventories.Add(new ViewModels.InventoryIndex()
         {
-            MySqlCommand command = mconn.CreateCommand();
-            command.CommandText = "SELECT Inventory.InventoryId, Inventory.ItemId, Inventory.LocationId, "
-                                    + "Inventory.Quantity, 	Items.Name AS ItemName,	Locations.Name AS LocationName, "
-                                    + "Items.Gender AS ItemGender, Items.Size AS ItemSize, Items.Age AS ItemAge "
-                                    + "FROM Inventory INNER JOIN Items ON Items.ItemId = Inventory.ItemId "
-                                    + "INNER JOIN Locations ON Locations.LocationId = Inventory.LocationId";
+            InventoryId = reader.GetInt32("InventoryId"),
+            ItemId = reader.GetInt32("ItemId"),
+            LocationId = reader.GetInt32("LocationId"),
+            Quantity = reader.GetInt32("Quantity"),
+            ItemName = reader.GetString("ItemName"),
+            ItemGender = reader.GetString("ItemGender"),
+            ItemSize = reader.GetString("ItemSize"),
+            ItemAge = reader.GetString("ItemAge"),
+            LocationName = reader.GetString("LocationName")
+        });
+    }
+    reader.Close();
+    return inventories;
+}
 
-            MySqlDataReader reader = command.ExecuteReader();
-            var inventories = new List<ViewModels.InventoryIndex>();
-            while (reader.Read())
-            {
-                inventories.Add(new ViewModels.InventoryIndex()
-                {
-                    InventoryId = reader.GetInt32("InventoryId"),
-                    ItemId = reader.GetInt32("ItemId"),
-                    LocationId = reader.GetInt32("LocationId"),
-                    Quantity = reader.GetInt32("Quantity"),
-                    ItemName = reader.GetString("ItemName"),
-                    ItemGender = reader.GetString("ItemGender"),
-                    ItemSize = reader.GetString("ItemSize"),
-                    ItemAge = reader.GetString("ItemAge"),
-                    LocationName = reader.GetString("LocationName")
-                });
-            }
-            reader.Close();
-            return inventories;
-        }
 
-        public List<Location> GetLocations(MySqlConnection mconn)
+
+public List<Location> GetLocations(MySqlConnection mconn)
         {
             MySqlCommand command = mconn.CreateCommand();
             command.CommandText = "SELECT * FROM Locations";

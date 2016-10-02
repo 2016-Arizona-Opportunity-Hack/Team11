@@ -18,7 +18,8 @@
         <th data-gridcolumn="=Name" data-gridfilter="false" title="Price; click to sort">Price</th>
         <th data-gridcolumn="=Name" data-gridfilter="false" title="Low limit; click to sort">LowLimit</th>
         <th data-gridcolumn="=Name" data-gridfilter="false" title="Gender; click to sort">Gender</th>
-        <th data-gridcolumn="=Name" data-gridfilter="false" title="Item Name; click to sort">Size</th>
+        <th data-gridcolumn="=Name" data-gridfilter="false" title="Size; click to sort">Size</th>
+        <th data-gridcolumn="=Name" data-gridfilter="false" title="Age; click to sort">Age</th>
         <th class="action-header text-center">
             <span data-original-title="Help" data-placement="top"
                   data-toggle="popover" data-trigger="click hover focus"
@@ -56,7 +57,7 @@
                 <td class="btn-toolbar-cell">                    
                         <div class="btn-toolbar hover-toolbar">
                             <div class="btn-group">
-                                <a class="btn btn-default btn-xs" href="@Url.Action("Edit", new { id = item.Name })" title="Edit Item"><i class="fa fa-pencil">Edit</i></a>
+                                <a class="btn btn-default btn-xs" href="@Url.Action("Edit", new { id = item.ItemId })" title="Edit Item"><i class="fa fa-pencil">Edit</i></a>
                            </div>
                         </div>                    
                 </td>
