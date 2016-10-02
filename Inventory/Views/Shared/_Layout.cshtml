@@ -1,4 +1,11 @@
 ﻿<!DOCTYPE html>
+<style>
+  .logo{
+width: 300px;
+height: 132px;
+}
+
+</style>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,7 +24,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Child Crisis AZ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="@Url.Action("Index", "Home")">
+                    <img id="img_logo" alt="Logo" height="50" width="150" src="@Url.Content("~/Content/themes/base/images/CCA-logo-2016-(HORZ).jpg")" />
+                </a>
+                <br/>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
