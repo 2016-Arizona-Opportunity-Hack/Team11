@@ -1,0 +1,35 @@
+﻿@Scripts.Render("~/bundles/jquery")
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+@{
+    ViewBag.Title = "Index";
+}
+<form method="post">
+
+    <br />
+    <p>Category</p> 
+    <select class="form-control"  name="category">
+    </select>
+    <br/>
+    <p>Item</p>
+    <select class="form-control" name="item"></select>
+    <br />
+    <p>Location</p><select class="form-control" name="location"></select>
+    <br />
+    <p>Quantity</p><input type="text" class="form-control" id="quantity" />
+    <br/>
+    @Html.ActionLink("Submit", "Create", "Order")
+
+    <button class=".btn-default" id="btnsubmit" onclick="location.href='@Url.Action("Create", "Order")'">Submit</button>
+
+</form>
+<script>
+    $("#needDate").datepicker({ inline: false });
+
+</script>
+
+
+
+
+
