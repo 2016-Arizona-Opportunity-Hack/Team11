@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Inventory.ViewModels.InventoryIndex>
+@{
+    ViewBag.Title = "Alert";
+}
+
+<h2>Alert</h2>
+
+<div class="container-fluid projects padding-top-small">
+    <div class="row">
+        @foreach (var service in Model)
+        {
+            <div class="col-sm-6 col-md-3">
+                <div class="project-inner">
+                    
+                       
+                        <div class="project-caption">
+                            @if (@service.Quantity < 10)
+                            {
+                            <div class="project-details" style="color:#ff0000">
+                                <p><i class="fa fa-plus fa-lg"></i></p>
+                                <h3>@service.ItemName</h3>
+                                <p><small>@service.Quantity</small></p>
+                            </div>
+                            
+                            }
+                            else
+                            {
+                            <div class="project-details">
+                                <p><i class="fa fa-plus fa-lg"></i></p>
+                                <h3>@service.ItemName</h3>
+                                <p><small>@service.Quantity</small></p>
+                            </div>
+                            }
+                        </div>
+                   
+                </div>
+            </div>
+        }
+    </div>
+</div>
