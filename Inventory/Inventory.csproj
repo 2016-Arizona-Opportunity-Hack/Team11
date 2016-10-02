@@ -356,6 +356,7 @@
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Inventory\_Add.cshtml" />
     <Content Include="Views\Inventory\Alert.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
