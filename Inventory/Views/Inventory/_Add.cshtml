@@ -2,25 +2,31 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="form-group">
-    <label style="margin-right: 10px;" class="pull-left">Item</label>
+
+<div class="row">
+    <div class="col-sm-1 col-xs-2">Item</div>
     <div class="col-sm-7">
         @Html.DropDownListFor(m => m.Inventory.ItemId, new SelectList(Model.Items, "ItemId", "Name", Model.Inventory.ItemId), new { @class = "singleSelect" })
     </div>
 </div>
-<div class="form-group">
-    <label style="margin-right: 10px;" class="pull-left">Location</label>
+<br />
+
+<div class="row">
+    <div class="col-sm-1 col-xs-2">Location</div>
     <div class="col-sm-7">
         @Html.DropDownListFor(m => m.Inventory.LocationId, new SelectList(Model.Locations, "LocationId", "Name", Model.Inventory.LocationId), new { @class = "singleSelect" })
     </div>
 </div>
-<div class="form-group">
-    <label style="margin-right: 10px;" class="pull-left">Quantity</label>
+<br />
+
+<div class="row">
+    <div class="col-sm-1 col-xs-2">Quantity</div>
     <div class="col-sm-7">
         @Html.TextBoxFor(model => model.Inventory.Quantity, new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Inventory.Quantity)
     </div>
 </div>
+<br />
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10 form-btns">
