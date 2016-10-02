@@ -82,5 +82,10 @@ namespace Inventory.Controllers
 
             return View(NewCreateOrder);
         }
+
+        public ActionResult Details()
+        {
+           return View();
+        }
     }
 }

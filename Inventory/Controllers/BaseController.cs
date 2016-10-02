@@ -37,7 +37,8 @@ public List<ViewModels.InventoryIndex> GetInventories(MySqlConnection mconn)
                             + "Inventory.Quantity, 	Items.Name AS ItemName,	Locations.Name AS LocationName, "
                             + "Items.Gender AS ItemGender, Items.Size AS ItemSize, Items.Age AS ItemAge "
                             + "FROM Inventory INNER JOIN Items ON Items.ItemId = Inventory.ItemId "
-                            + "INNER JOIN Locations ON Locations.LocationId = Inventory.LocationId";
+                            + "INNER JOIN Locations ON Locations.LocationId = Inventory.LocationId"
+                            + " ORDER BY ItemName, ItemGender, ItemSize, ItemAge, LocationName";
 
     MySqlDataReader reader = command.ExecuteReader();
     var inventories = new List<ViewModels.InventoryIndex>();
