@@ -17,7 +17,7 @@ namespace Inventory.Controllers
             var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
             MySqlConnection mconn = new MySqlConnection(strConnString);
             mconn.Open();
-            var results = GetItems(mconn);
+            var results = GetInventories(mconn);
             /*
                         InventoryViewModel inventoryVM = new InventoryViewModel()
                         {
