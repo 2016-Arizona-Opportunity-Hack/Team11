@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Inventory.Models.Category>
+﻿@model IEnumerable<Inventory.Models.Item>
 @Scripts.Render("~/bundles/jquery")
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" />
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
@@ -8,17 +8,12 @@
 }
 <br />
 
-<<<<<<< HEAD
-
-<a  href="@Url.Action("Create", "Category")" ><i class='fa fa-plus'></i><span>Create Category</span></a>
-=======
-<a class="btn btn-default" href="@Url.Action("Create", "Category")" title="Create a new Category"><i class='fa fa-plus'></i><span>Create Category</span></a>
->>>>>>> 335154fe85b14a4c957d98a2d469e3ab37d28518
+<a class="btn btn-default" href="@Url.Action("Create", "Item")" title="Create a new Item"><i class='fa fa-plus'></i><span>Create Item</span></a>
 
 <table class="table table-condensed table-hover">
 <thead>
     <tr>
-        <th data-gridcolumn="Name" data-gridfilter="false" title="Category Name; click to sort">Name</th>
+        <th data-gridcolumn="Name" data-gridfilter="false" title="Item ID; click to sort">Name</th>
         <th class="action-header text-center">
             <span data-original-title="Help" data-placement="top"
                   data-toggle="popover" data-trigger="click hover focus"
@@ -29,16 +24,16 @@
     </tr>
 </thead>
     <tbody>
-        @foreach (var cat in Model)
+        @foreach (var item in Model)
         {
             <tr>          
                 <td>
-                    @Html.DisplayFor(c => cat.CategoryName)
+                    @Html.DisplayFor(c => item.Name)
                 </td>
                 <td class="btn-toolbar-cell">                    
                         <div class="btn-toolbar hover-toolbar">
                             <div class="btn-group">
-                                <a class="btn btn-default btn-xs" href="@Url.Action("Edit", new { id = cat.CategoryId })" title="Edit Category"><i class="fa fa-pencil">Edit</i></a>
+                                <a class="btn btn-default btn-xs" href="@Url.Action("Edit", new { id = item.Name })" title="Edit Item"><i class="fa fa-pencil">Edit</i></a>
                            </div>
                         </div>                    
                 </td>

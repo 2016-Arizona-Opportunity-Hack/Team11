@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace Inventory.Controllers
 {
-    public class CategoryController : Controller
+    public class ItemController : Controller
     {
 
         // GET: /Category/
@@ -19,19 +19,19 @@ namespace Inventory.Controllers
             mconn.Open();
 
             MySqlCommand command = mconn.CreateCommand();
-            command.CommandText = "select * from Categories";
+            command.CommandText = "select * from Items";
             MySqlDataReader reader = command.ExecuteReader();
-            var result = new List<Category>();
+            var result = new List<Item>();
             while (reader.Read())
             {
-                result.Add(new Category() { CategoryId = reader.GetInt32(0), CategoryName = reader.GetString(1) });
+                result.Add(new Item() { CategoryId = reader.GetInt32(0), ItemId = reader.GetInt32(1), Name = reader.GetString(2), Gender = reader.GetString(3), Size = reader.GetString(4), Age = reader.GetString(5), LowLimit = reader.GetInt32(6), Price = reader.GetDecimal(7)});
             }
 
             reader.Close();
             return View(result);
         }
 
-        private Category GetCategory(int id)
+        private Item GetItem(int id)
         {
             var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
 
@@ -39,34 +39,40 @@ namespace Inventory.Controllers
             mconn.Open();
 
             MySqlCommand command = mconn.CreateCommand();
-            command.CommandText = "select * from Categories where CategoryId = " + id;
+            command.CommandText = "select * from Items where ItemId = " + id;
             MySqlDataReader reader = command.ExecuteReader();
             
-            var category = new Category();
+            var item = new Item();
 
             while (reader.Read())
             {
-                category.CategoryId = reader.GetInt32(0);
-                category.CategoryName = reader.GetString(1);
+                item.CategoryId = reader.GetInt32(0);
+                item.ItemId = reader.GetInt32(1);
+                item.Name = reader.GetString(2);
+                item.Gender = reader.GetString(3);
+                item.Size = reader.GetString(4);
+                item.Age = reader.GetString(5);
+                item.LowLimit = reader.GetInt32(6);
+                item.Price = reader.GetDecimal(7);
             }
 
             reader.Close();
-            return category;
+            return item;
         }
 
         public ActionResult Create()
         {
-            var newcat = new Category();
-            return View(newcat);
+            var newItem = new Item();
+            return View(newItem);
         }
 
         [HttpPost]
-        public ActionResult Create(Category category)
+        public ActionResult Create(Item item)
         {
-            CheckForDuplicate(category);
+            CheckForDuplicate(item);
 
             if (!ModelState.IsValid)
-                return View(category);
+                return View(item);
             var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
 
             MySqlConnection mconn = new MySqlConnection(strConnString);
@@ -75,7 +81,7 @@ namespace Inventory.Controllers
                 mconn.Open();
 
                 MySqlCommand command = mconn.CreateCommand();
-                command.CommandText = "Insert into Categories (CategoryName) values ('"+category.CategoryName+"')";
+                command.CommandText = "Insert into Items (ItemId) values ('"+item.ItemId+"')";
                 var output=command.ExecuteNonQuery();
                 if (output != 1) {
                 }
@@ -89,9 +95,9 @@ namespace Inventory.Controllers
                 return RedirectToAction("Index");
         }
 
-        private void CheckForDuplicate(Category category)
+        private void CheckForDuplicate(Item item)
         {            
-                if (category == null)
+                if (item == null)
                     return;
 
                 var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
@@ -102,12 +108,12 @@ namespace Inventory.Controllers
                 mconn.Open();
 
                 MySqlCommand command = mconn.CreateCommand();
-                command.CommandText = "select count(*) from Categories where CategoryName = " + category.CategoryName;
+                command.CommandText = "select count(*) from Items where ItemId = " + item.ItemId;
 
                int rowscount = Convert.ToInt32(command.ExecuteScalar());
                
                 if (rowscount > 0)
-                    ModelState.AddModelError("Category Name", "A Category with this name already exists.");
+                    ModelState.AddModelError("Item ID", "An item with this name already exists.");
             }
             catch (Exception e)
             {
@@ -121,17 +127,17 @@ namespace Inventory.Controllers
 
         public ActionResult Edit(int id)
         {
-            var cat = GetCategory(id);
-            return View(cat);
+            var item = GetItem(id);
+            return View(item);
         }
 
         [HttpPost]
-        public ActionResult Edit(Category category)
+        public ActionResult Edit(Item item)
         {
-            CheckForDuplicate(category);
+            CheckForDuplicate(item);
 
             if (!ModelState.IsValid)
-                return View(category);
+                return View(item);
 
            var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
 
@@ -141,7 +147,7 @@ namespace Inventory.Controllers
                 mconn.Open();
 
                 MySqlCommand command = mconn.CreateCommand();
-                command.CommandText = "Update Categories Set CategoryName = '" + category.CategoryName + "' Where CategoryId = " + category.CategoryId;
+                command.CommandText = "Update Items Set Name = '" + item.Name + "' Where ItemId = " + item.ItemId;
                 var output = command.ExecuteNonQuery();
                 if (output != 1)
                 {
