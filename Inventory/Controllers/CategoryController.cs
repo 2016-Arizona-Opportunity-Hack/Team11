@@ -13,8 +13,6 @@ namespace Inventory.Controllers
         // GET: /Category/
         public ActionResult Index()
         {
-            //var vm = new Models.Category();
-            //IEnumerable<Category> clist = new List<Category>();
             var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
 
             MySqlConnection mconn = new MySqlConnection(strConnString);
@@ -27,12 +25,33 @@ namespace Inventory.Controllers
             while (reader.Read())
             {
                 result.Add(new Category() { CategoryId = reader.GetInt32(0), CategoryName = reader.GetString(1) });
-                //reader["column_name"].ToString()
             }
 
             reader.Close();
             return View(result);
-            //   return View();
+        }
+
+        private Category GetCategory(int id)
+        {
+            var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
+
+            MySqlConnection mconn = new MySqlConnection(strConnString);
+            mconn.Open();
+
+            MySqlCommand command = mconn.CreateCommand();
+            command.CommandText = "select * from Categories where CategoryId = " + id;
+            MySqlDataReader reader = command.ExecuteReader();
+            
+            var category = new Category();
+
+            while (reader.Read())
+            {
+                category.CategoryId = reader.GetInt32(0);
+                category.CategoryName = reader.GetString(1);
+            }
+
+            reader.Close();
+            return category;
         }
 
         public ActionResult Create()
@@ -71,8 +90,7 @@ namespace Inventory.Controllers
         }
 
         private void CheckForDuplicate(Category category)
-        {
-            
+        {            
                 if (category == null)
                     return;
 
@@ -84,13 +102,10 @@ namespace Inventory.Controllers
                 mconn.Open();
 
                 MySqlCommand command = mconn.CreateCommand();
-                command.CommandText = "select count(*) from Categories where categoryId = " + category.CategoryId;
+                command.CommandText = "select count(*) from Categories where CategoryName = " + category.CategoryName;
 
-                //MySqlDataReader reader = command.ExecuteReader();
-
-                int rowscount = Convert.ToInt32(command.ExecuteScalar());
-                
-
+               int rowscount = Convert.ToInt32(command.ExecuteScalar());
+               
                 if (rowscount > 0)
                     ModelState.AddModelError("Category Name", "A Category with this name already exists.");
             }
@@ -102,6 +117,44 @@ namespace Inventory.Controllers
                 if(mconn.State == System.Data.ConnectionState.Open)
                     mconn.Close();   
             }
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var cat = GetCategory(id);
+            return View(cat);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Category category)
+        {
+            CheckForDuplicate(category);
+
+            if (!ModelState.IsValid)
+                return View(category);
+
+           var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
+
+            MySqlConnection mconn = new MySqlConnection(strConnString);
+            try
+            {
+                mconn.Open();
+
+                MySqlCommand command = mconn.CreateCommand();
+                command.CommandText = "Update Categories Set CategoryName = '" + category.CategoryName + "' Where CategoryId = " + category.CategoryId;
+                var output = command.ExecuteNonQuery();
+                if (output != 1)
+                {
+                }
+            }
+            catch (Exception e) { }
+            finally
+            {
+                if (mconn.State == System.Data.ConnectionState.Open)
+                    mconn.Close();
+            }
+
+            return RedirectToAction("Index");
         }
     }
 

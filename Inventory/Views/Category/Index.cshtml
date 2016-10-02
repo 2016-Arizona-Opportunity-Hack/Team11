@@ -1,21 +1,45 @@
 ﻿@model IEnumerable<Inventory.Models.Category>
 @Scripts.Render("~/bundles/jquery")
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" />
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 @{
     ViewBag.Title = "Index";
 }
 <br />
 
-
 <a class="btn btn-default" href="@Url.Action("Create", "Category")" title="Create a new Category"><i class='fa fa-plus'></i><span>Create Category</span></a>
 
-
-
-
-@foreach (var cat in Model) {
-    @Html.DisplayFor(c=>cat.CategoryName);
-    }
-        
+<table class="table table-condensed table-hover">
+<thead>
+    <tr>
+        <th data-gridcolumn="Name" data-gridfilter="false" title="Category Name; click to sort">Name</th>
+        <th class="action-header text-center">
+            <span data-original-title="Help" data-placement="top"
+                  data-toggle="popover" data-trigger="click hover focus"
+                  data-content="Hover or click on a row to access the action buttons located at the end of the row.">
+                <i class="fa fa-info-circle"></i>
+            </span>
+        </th>
+    </tr>
+</thead>
+    <tbody>
+        @foreach (var cat in Model)
+        {
+            <tr>          
+                <td>
+                    @Html.DisplayFor(c => cat.CategoryName)
+                </td>
+                <td class="btn-toolbar-cell">                    
+                        <div class="btn-toolbar hover-toolbar">
+                            <div class="btn-group">
+                                <a class="btn btn-default btn-xs" href="@Url.Action("Edit", new { id = cat.CategoryId })" title="Edit Category"><i class="fa fa-pencil">Edit</i></a>
+                           </div>
+                        </div>                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>    
 
 <button class=".btn-default" id="btnsubmit">Submit</button>
