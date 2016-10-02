@@ -1,23 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Inventory.Models;
 using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace Inventory.Controllers
 {
     public class BaseController : Controller
     {
+        public MySqlConnection CreateConnection()
+        {
+            var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
+
+            MySqlConnection mconn = new MySqlConnection(strConnString);
+            return mconn;
+        }
+
         public List<Category> GetCategories(MySqlConnection mconn)
         {
             MySqlCommand command = mconn.CreateCommand();
-            command.CommandText = "select * from Categories";
+            command.CommandText = "Select * from Categories";
             MySqlDataReader reader = command.ExecuteReader();
             var result = new List<Category>();
             while (reader.Read())
             {
-                result.Add(new Category() { CategoryId = reader.GetInt32(0), CategoryName = reader.GetString(1) });
+                result.Add(new Category() { CategoryId = reader.GetInt32("CategoryId"), CategoryName = reader.GetString("CategoryName") });
             }
             reader.Close();
             return result;
@@ -32,17 +39,17 @@ namespace Inventory.Controllers
                                     + "INNER JOIN Locations ON Locations.LocationId = Inventory.LocationId";
 
             MySqlDataReader reader = command.ExecuteReader();
-            var inventories = new List<Inventory.Models.Inventory>();
+            var inventories = new List<Models.Inventory>();
             while (reader.Read())
             {
-                inventories.Add(new Inventory.Models.Inventory()
+                inventories.Add(new Models.Inventory()
                 {
-                    InventoryId = reader.GetInt32(0),
-                    ItemId = reader.GetInt32(1),
-                    LocationId = reader.GetInt32(2),
-                    Quantity = reader.GetInt32(3),
-                    ItemName = reader.GetString(4),
-                    LocationName = reader.GetString(5)
+                    InventoryId = reader.GetInt32("InventoryId"),
+                    ItemId = reader.GetInt32("ItemId"),
+                    LocationId = reader.GetInt32("LocationId"),
+                    Quantity = reader.GetInt32("Quantity"),
+                    ItemName = reader.GetString("ItemName"),
+                    LocationName = reader.GetString("LocationName")
                 });
             }
             reader.Close();
@@ -54,18 +61,36 @@ namespace Inventory.Controllers
             MySqlCommand command = mconn.CreateCommand();
             command.CommandText = "SELECT * FROM Locations";
             MySqlDataReader reader = command.ExecuteReader();
-            var locations = new List<Inventory.Models.Location>();
+            var locations = new List<Location>();
             while (reader.Read())
             {
-                locations.Add(new Inventory.Models.Location()
+                locations.Add(new Location()
                 {
-                    LocationId = reader.GetInt32(0),
-                    Name = reader.GetString(1),
-                    Address = reader.GetString(2)
+                    LocationId = reader.GetInt32("LocationId"),
+                    Name = reader.GetString("Name"),
+                    Address = reader.GetString("Address")
                 });
             }
             reader.Close();
             return locations;
+        }
+
+        public List<Department> GetDepartments(MySqlConnection mconn)
+        {
+            MySqlCommand command = mconn.CreateCommand();
+            command.CommandText = "SELECT * FROM Departments";
+            MySqlDataReader reader = command.ExecuteReader();
+            var departments = new List<Department>();
+            while (reader.Read())
+            {
+                departments.Add(new Department()
+                {
+                    DepartmentId = reader.GetInt32("DepartmentId"),
+                    Name = reader.GetString("Name")
+                });
+            }
+            reader.Close();
+            return departments;
         }
 
         public List<Item> GetItems(MySqlConnection mconn)
@@ -92,5 +117,4 @@ namespace Inventory.Controllers
             return result;
         }
     }
-
 }

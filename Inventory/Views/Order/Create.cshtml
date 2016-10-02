@@ -1,0 +1,14 @@
+﻿@model Inventory.ViewModels.OrderCreate
+@{
+    ViewBag.Title = "Create Category";
+}
+
+<div class="title-section">
+    <h4>Create Order</h4>
+</div>
+
+@using (Html.BeginForm("Create", "Order", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+     @Html.Partial("_Edit")
+}
+

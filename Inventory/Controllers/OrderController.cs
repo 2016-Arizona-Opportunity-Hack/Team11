@@ -8,22 +8,21 @@ using Inventory.ViewModels;
 
 namespace Inventory.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : BaseController
     {
         // GET: Order
         public ActionResult Index()
         {
-            var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
-
-            MySqlConnection mconn = new MySqlConnection(strConnString);
+            var mconn = CreateConnection();
 
             var result = new List<OrderIndex>();
 
-            try {
+            try
+            {
                 mconn.Open();
 
                 MySqlCommand command = mconn.CreateCommand();
-                command.CommandText = "Select O.OrderId, O.DepartmentId, O.LocationId, O.IsFulfilled, O.NeedByDate, L.Name AS LocationName, D.Name AS DepartmentName From Orders O " + 
+                command.CommandText = "Select O.OrderId, O.DepartmentId, O.LocationId, O.IsFulfilled, O.NeedByDate, L.Name AS LocationName, D.Name AS DepartmentName From Orders O " +
                                          "Left Join Locations L on (O.LocationId = L.LocationId) " +
                                          "Left Join Departments D on (O.DepartmentId = D.DepartmentId)";
                 MySqlDataReader reader = command.ExecuteReader();
@@ -58,45 +57,30 @@ namespace Inventory.Controllers
             return View(result);
         }
 
-      
-        public String Create()
+
+        public ActionResult Create()
         {
-            string strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
-            //string id, name;
-            MySqlConnection mconn = new MySqlConnection(strConnString);
-            mconn.Open();
+            var NewCreateOrder = new OrderCreate(){ Order = new Order { IsFulfilled = false } };
 
-            MySqlCommand command = mconn.CreateCommand();
-            command.CommandText = "select * from Categories";
-            MySqlDataReader reader = command.ExecuteReader();
-            String result=null;
-            while (reader.Read())
+            var mconn = CreateConnection();
+
+            try
             {
-                result = result + reader.GetString(0);
-                //reader["column_name"].ToString()
+                mconn.Open();
+                NewCreateOrder.Departments = GetDepartments(mconn);
+                NewCreateOrder.Locations = GetLocations(mconn);    
             }
-            
-            reader.Close();
-            return result;
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                if (mconn.State == System.Data.ConnectionState.Open)
+                    mconn.Close();
+            }
+
+            return View(NewCreateOrder);
         }
-
-
-              
-    
-
-//        [HttpPost]
-//        public ActionResult Create([Bind(Include = "Name,IsEnabled,SequenceNumber,Description")] Category category)
-//        {
-//            //if (!ModelState.IsValid)
-//            //    return View(category);
-//
-//            //category.Name = category.Name.NullTrim();
-//            //category.Description = category.Description.NullTrim();
-//
-//            //_db.Categories.Add(category);
-//            //_db.SaveChanges();
-//
-//            //return RedirectToAction("Index");
-//        }
     }
 }
