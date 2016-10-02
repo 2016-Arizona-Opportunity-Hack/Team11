@@ -1,0 +1,42 @@
+node_modules
+Source/Client/app/bower_components
+/Source/Web/Tests/**/*.js
+/Source/Web/Tests/**/*.js.map
+/Source/Web/App/**/*.js
+/Source/Web/App/**/*.js.map
+
+
+# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
+[Bb]in/
+[Oo]bj/
+
+# mstest test results
+TestResults
+
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+
+# ReSharper is a .NET coding add-in
+_ReSharper*
+
+# NCrunch
+*.ncrunch*
+.*crunch*.local.xml
+
+# Click-Once directory
+publish
+
+# Publish Web Output
+*.Publish.xml
+
+# NuGet Packages Directory
+packages
+.sass-cache
+/npm-debug.log
+/Source/Database/Database.dbmdl
+/Source/Web/Scripts/jasmine-samples/Player.js
+/Source/Web/Scripts/jasmine-samples/PlayerSpec.js
+/Source/Web/Scripts/jasmine-samples/Song.js
+/Source/Web/Scripts/jasmine-samples/SpecHelper.js
