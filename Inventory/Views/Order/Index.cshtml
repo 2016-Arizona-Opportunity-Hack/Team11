@@ -1,32 +1,58 @@
-﻿@Scripts.Render("~/bundles/jquery")
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css"/>
+﻿@model IEnumerable<Inventory.ViewModels.OrderIndex>
+@Scripts.Render("~/bundles/jquery")
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" />
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
 @{
     ViewBag.Title = "Index";
 }
-<form method="post">
-<br/>
-<p>Inventory</p> <input type="text" class="form-control" id="inventory" />
-<br/>
-<p>Quantity</p> <input type="text" class="form-control" id="quantity" />
 <br />
-<p>Depart</p> <input type="text" class="form-control" id="department"  />
-<br />
-<p>Need by</p> <input type="text" class="form-control" id="needDate" />
+<a class="btn btn-default" href="@Url.Action("Create", "Order")" title="Create a new Category"><i class='fa fa-plus'></i><span>Create Order</span></a>
 <br/>
-
-    @Html.ActionLink("Submit", "Create", "Order")
-
-<button class=".btn-default" id="btnsubmit" onclick="location.href='@Url.Action("Create", "Order")';">Submit</button>
-
-</form>
-<script>
-    $("#needDate").datepicker({ inline: false });
-
-</script>
-
-
-
-
-
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <th data-gridcolumn="Name" data-gridfilter="false" title="Order Id; click to sort">Order Id</th>
+            <th>Department Name</th>
+            <th>Location Name</th>
+            <th>Need By</th>
+            <th>Order Fulfilled</th>
+            <th class="action-header text-center">
+                <span data-original-title="Help" data-placement="top"
+                      data-toggle="popover" data-trigger="click hover focus"
+                      data-content="Hover or click on a row to access the action buttons located at the end of the row.">
+                    <i class="fa fa-info-circle"></i>
+                </span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(o => order.Order.OrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(o => order.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(o => order.LocationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(o => order.Order.NeedByDate)
+                </td>
+                <td style="text-align: center;">
+                    @Html.DisplayFor(o => order.Order.IsFulfilled)
+                </td>
+                <td class="btn-toolbar-cell">
+                    <div class="btn-toolbar hover-toolbar">
+                        <div class="btn-group">
+                            <a class="btn btn-default btn-xs" href="@Url.Action("Details", new { id = order.Order.OrderId })" title="Details"><i class="fa fa-pencil">Details</i></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
