@@ -11,5 +11,7 @@ namespace Inventory.Models
         public int ItemId { get; set; }
         public int LocationId { get; set; }
         public int Quantity { get; set; }
+        public string ItemName { get; set; }
+        public string LocationName { get; set; }
     }
 }

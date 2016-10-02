@@ -14,6 +14,7 @@ namespace Inventory.Models
         public string Size { get; set; }
         public string Age { get; set; }
         public int LowLimit { get; set; }
-        public decimal Price { get; set; }
+        public decimal Price {  get; set;
+        }
     }
 }
