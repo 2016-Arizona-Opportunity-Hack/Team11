@@ -6,6 +6,7 @@
     @Html.LabelFor(model => model.CategoryId, new { @class = "col-sm-2 control-label" })
     <div class="col-sm-7">
         @Html.TextBoxFor(model => model.CategoryId, new { @class = "form-control" })
+      //  @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categories, "CategoryId", "CategoryName", Model.CategoryId), new { @class = "singleSelect" })
         @Html.ValidationMessageFor(model => model.CategoryId)
     </div>
 </div>
@@ -51,28 +52,6 @@
         @Html.ValidationMessageFor(model => model.Size)
     </div>
 </div>
-<div class="form-group">
-    @Html.LabelFor(model => model.ModifiedBy, new { @class = "col-sm-2 control-label" })
-    <div class="col-sm-7">
-        @Html.TextBoxFor(model => model.ModifiedBy, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.ModifiedBy)
-    </div>
-</div>
-<div class="form-group">
-    @Html.LabelFor(model => model.Timestamp, new { @class = "col-sm-2 control-label" })
-    <div class="col-sm-7">
-        @Html.TextBoxFor(model => model.Timestamp, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Timestamp)
-    </div>
-</div>
-<div class="form-group">
-    @Html.LabelFor(model => model.IsDeleted, new { @class = "col-sm-2 control-label" })
-    <div class="col-sm-7">
-        @Html.TextBoxFor(model => model.IsDeleted, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.IsDeleted)
-    </div>
-</div>
-
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10 form-btns">

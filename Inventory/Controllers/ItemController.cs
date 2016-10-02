@@ -34,12 +34,13 @@ namespace Inventory.Controllers
             MySqlConnection mconn = new MySqlConnection(strConnString);
             mconn.Open();
 
+            var item = new Item();
+            item.Categories = GetCategories(mconn);
+
             MySqlCommand command = mconn.CreateCommand();
             command.CommandText = "select * from Items where ItemId = " + id;
             MySqlDataReader reader = command.ExecuteReader();
-            
-            var item = new Item();
-
+                   
             while (reader.Read())
             {
                 item.CategoryId = reader.GetInt32("CategoryId");
@@ -59,6 +60,10 @@ namespace Inventory.Controllers
         public ActionResult Create()
         {
             var newItem = new Item();
+            var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
+            MySqlConnection mconn = new MySqlConnection(strConnString);
+            mconn.Open();
+            newItem.Categories = GetCategories(mconn);
             newItem.IsDeleted = 0;
             return View(newItem);
         }

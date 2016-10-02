@@ -18,7 +18,7 @@ namespace Inventory.Models
         public int ModifiedBy { get; set; }
         public string Timestamp { get; set; }
         public int IsDeleted { get; set; }
-        public string CategoryName { get; set; 
-        }
+        public string CategoryName { get; set; }
+        public List<Category> Categories { get; set; }
     }
 }
