@@ -81,3 +81,4 @@ C:\Users\dhire\Documents\Visual Studio 2015\Projects\Inventory\Inventory\bin\Mic
 C:\Users\dhire\Documents\Visual Studio 2015\Projects\Inventory\Inventory\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\dhire\Documents\Visual Studio 2015\Projects\Inventory\Inventory\obj\Debug\Inventory.dll
 C:\Users\dhire\Documents\Visual Studio 2015\Projects\Inventory\Inventory\obj\Debug\Inventory.pdb
+C:\Users\dhire\Documents\Visual Studio 2015\Projects\Inventory\Inventory\obj\Debug\Inventory.csprojResolveAssemblyReference.cache

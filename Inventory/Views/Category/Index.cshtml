@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Inventory.Models.Category>
+@Scripts.Render("~/bundles/jquery")
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+
+
+<a class="btn btn-default" href="@Url.Action("Create")" title="Create a new Category"><i class='fa fa-plus'></i><span>Create Category</span></a>
+
+
+
+
+@foreach (var cat in Model) {
+    @Html.DisplayFor(c=>cat.CategoryName);
+    }
+        
+
+<button class=".btn-default" id="btnsubmit">Submit</button>
