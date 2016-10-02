@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Inventory.Models
 {
-    public class Attribute
+    public class CcUserRole
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int CcUserId { get; set; }
+        public string RoleId { get; set; }
     }
 }
