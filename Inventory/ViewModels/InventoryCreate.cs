@@ -7,9 +7,11 @@ namespace Inventory.ViewModels
 {
     public class InventoryCreate
     {
-        public InventoryIndex inventory { get; set; }
+        public InventoryIndex Inventory { get; set; }
         public List<Models.Item> Items { get; set; }
         public List<Models.Location> Locations { get; set; }
         public List<Models.Category> Categories { get; set; }
+        public int SelectedItemId { get; set; }
+        public int SelectedLocationId { get; set; }
     }
 }

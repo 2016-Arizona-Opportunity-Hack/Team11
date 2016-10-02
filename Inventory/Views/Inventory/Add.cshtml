@@ -1,0 +1,14 @@
+﻿@model Inventory.ViewModels.InventoryCreate
+@{
+    ViewBag.Title = "Add To Inventory";
+}
+
+<div class="title-section">
+    <h4>Add To Inventory</h4>
+</div>
+
+@using (Html.BeginForm("Add", "Inventory", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+     @Html.Partial("_Add")
+}
+

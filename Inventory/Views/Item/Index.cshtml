@@ -14,8 +14,7 @@
 <thead>
     <tr>
         <th data-gridcolumn="=Name" data-gridfilter="false" title="Item Name; click to sort">Name</th>
-        <th data-gridcolumn="=Name" data-gridfilter="false" title="Item ID; click to sort">CategoryId</th>
-        <th data-gridcolumn="=Name" data-gridfilter="false" title="Item ID; click to sort">ItemId</th>
+        <th data-gridcolumn="=Name" data-gridfilter="false" title="Category Name; click to sort">Item Category</th>
         <th data-gridcolumn="=Name" data-gridfilter="false" title="Price; click to sort">Price</th>
         <th data-gridcolumn="=Name" data-gridfilter="false" title="Low limit; click to sort">LowLimit</th>
         <th data-gridcolumn="=Name" data-gridfilter="false" title="Gender; click to sort">Gender</th>
@@ -37,10 +36,7 @@
                     @Html.DisplayFor(c => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(c => item.CategoryId)
-                </td>
-                <td>
-                    @Html.DisplayFor(c => item.ItemId)
+                    @Html.DisplayFor(c => item.CategoryName)
                 </td>
                 <td>
                     @Html.DisplayFor(c => item.Price)

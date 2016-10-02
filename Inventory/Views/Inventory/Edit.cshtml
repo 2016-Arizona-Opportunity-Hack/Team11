@@ -1,0 +1,15 @@
+﻿@model Inventory.ViewModels.InventoryIndex
+@{
+    ViewBag.Title = "Modify Inventory";
+}
+
+<div class="title-section">
+    <h4>Modify Inventory</h4>
+</div>
+
+@using (Html.BeginForm("Edit", "Inventory", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(model => model.InventoryId)
+    @Html.Partial("_Edit")
+}
+

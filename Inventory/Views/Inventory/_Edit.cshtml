@@ -1,35 +1,56 @@
-﻿@Scripts.Render("~/bundles/jquery")
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
+﻿@model Inventory.ViewModels.InventoryIndex
 @{
     ViewBag.Title = "Index";
 }
-<form method="post">
+<div class="form-group">
+    <label style="margin-right: 10px;" class="pull-left">Item</label>
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.ItemName, new { @class = "form-control", disabled=true })
+        @Html.ValidationMessageFor(model => model.ItemName)
+    </div>
+</div>
+<div class="form-group">
+    <label style="margin-right: 10px;" class="pull-left">Gender</label>
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.ItemGender, new { @class = "form-control", disabled = true })
+        @Html.ValidationMessageFor(model => model.ItemGender)
+    </div>
+</div>
+<div class="form-group">
+    <label style="margin-right: 10px;" class="pull-left">Size</label>
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.ItemSize, new { @class = "form-control", disabled = true })
+        @Html.ValidationMessageFor(model => model.ItemSize)
+    </div>
+</div>
+<div class="form-group">
+    <label style="margin-right: 10px;" class="pull-left">Age</label>
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.ItemAge, new { @class = "form-control", disabled = true })
+        @Html.ValidationMessageFor(model => model.ItemAge)
+    </div>
+</div>
+<div class="form-group">
+    <label style="margin-right: 10px;" class="pull-left">Location</label>
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.LocationName, new { @class = "form-control", disabled = true })
+        @Html.ValidationMessageFor(model => model.LocationName)
+    </div>
+</div>
+<div class="form-group">
+    <label style="margin-right: 10px;" class="pull-left">Quantity</label>
+    <div class="col-sm-7">
+        @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Quantity)
+    </div>
+</div>
 
-    <br />
-    <p>Category</p> 
-    <select class="form-control"  name="category">
-    </select>
-    <br/>
-    <p>Item</p>
-    <select class="form-control" name="item"></select>
-    <br />
-    <p>Location</p><select class="form-control" name="location"></select>
-    <br />
-    <p>Quantity</p><input type="text" class="form-control" id="quantity" />
-    <br/>
-    @Html.ActionLink("Submit", "Create", "Order")
-
-    <button class=".btn-default" id="btnsubmit" onclick="location.href='@Url.Action("Create", "Order")'">Submit</button>
-
-</form>
-<script>
-    $("#needDate").datepicker({ inline: false });
-
-</script>
-
-
-
-
-
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10 form-btns">
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i>
+                <span>Save</span>
+        </button>
+        <a href="@Url.Action("Index", "Inventory")" class="btn btn-default"><i class="fa fa-times"></i><span>Cancel</span></a>
+    </div>
+</div>

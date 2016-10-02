@@ -7,12 +7,15 @@
     ViewBag.Title = "Index";
 }
 <br />
-<a class="btn btn-default" href="@Url.Action("Add", "Inventory")" title="Add inventory"><i class='fa fa-plus'></i><span>Add Inventory</span></a>
+<a class="btn btn-default" href="@Url.Action("Add", "Inventory")" title="Add To Inventory"><i class='fa fa-plus'></i><span>Add To Inventory</span></a>
 <br />
 <table class="table table-condensed table-hover">
     <thead>
         <tr>
             <th data-gridcolumn="ItemName" data-gridfilter="false" title="Item; click to sort">Item</th>
+            <th>Gender </th>
+            <th>Size </th>
+            <th>Age </th>
             <th>Location </th>
             <th>Quantity</th>
             <th class="action-header text-center">
@@ -30,6 +33,15 @@
             <tr>
                 <td>
                     @Html.DisplayFor(o => inv.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(o => inv.ItemGender)
+                </td>
+                <td>
+                    @Html.DisplayFor(o => inv.ItemSize)
+                </td>
+                <td>
+                    @Html.DisplayFor(o => inv.ItemAge)
                 </td>
                 <td>
                     @Html.DisplayFor(o => inv.LocationName)

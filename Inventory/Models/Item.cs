@@ -14,7 +14,11 @@ namespace Inventory.Models
         public string Size { get; set; }
         public string Age { get; set; }
         public int LowLimit { get; set; }
-        public decimal Price {  get; set;
+        public decimal Price { get; set; }
+        public int ModifiedBy { get; set; }
+        public string Timestamp { get; set; }
+        public int IsDeleted { get; set; }
+        public string CategoryName { get; set; 
         }
     }
 }

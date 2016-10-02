@@ -13,5 +13,8 @@ namespace Inventory.ViewModels
         public int Quantity { get; set; }
         public string ItemName { get; set; }
         public string LocationName { get; set; }
+        public string ItemGender { get; set; }
+        public string ItemSize { get; set; }
+        public string ItemAge { get; set; }
     }
 }
