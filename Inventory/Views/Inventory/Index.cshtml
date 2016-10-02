@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Inventory.Models.Item>
+﻿@model IEnumerable<Inventory.Models.Inventory>
 @Scripts.Render("~/bundles/jquery")
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" />
 @{
@@ -11,7 +11,9 @@
 
 @foreach (var inv in Model)
 {
-    @Html.DisplayFor(i => inv.Name);
+    @Html.DisplayFor(i => inv.ItemName);
+    @Html.DisplayFor(i => inv.LocationName);
+    @Html.DisplayFor(i => inv.Quantity);
 }
 
 
