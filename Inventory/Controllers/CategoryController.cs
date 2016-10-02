@@ -11,7 +11,7 @@ namespace Inventory.Controllers
 {
     public class CategoryController : Controller
     {
-       
+
         // GET: /Category/
         public ActionResult Index()
         {
@@ -28,19 +28,21 @@ namespace Inventory.Controllers
             var result = new List<Category>();
             while (reader.Read())
             {
-                result.Add(new Category() { Id = reader.GetInt32(0), CategoryName=reader.GetString(1) });
+                result.Add(new Category() { CategoryId = reader.GetInt32(0), CategoryName = reader.GetString(1) });
                 //reader["column_name"].ToString()
             }
 
             reader.Close();
             return View(result);
-         //   return View();
+            //   return View();
         }
-        public ActionResult Create() {
+        public ActionResult Create()
+        {
             var newcat = new Category();
 
             return View(newcat);
+        }
+
+
     }
-    
-    
 }
