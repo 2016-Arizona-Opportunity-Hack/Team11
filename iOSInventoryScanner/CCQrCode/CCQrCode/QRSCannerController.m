@@ -6,19 +6,24 @@
 //  Copyright © 2016 Ayush Sanyal. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "QRSCannerController.h"
 #import "QRCodeReaderViewController.h"
-@interface ViewController ()
+#import "InventoryInput.h"
+
+@interface QRSCannerController ()
 
 @property (strong, nonatomic) AVCaptureDevice* device;
 @property (strong, nonatomic) AVCaptureDeviceInput* input;
 @property (strong, nonatomic) AVCaptureMetadataOutput* output;
 @property (strong, nonatomic) AVCaptureSession* session;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer* preview;
+@property NSString* qrResult;
 
 @end
 
-@implementation ViewController
+@implementation QRSCannerController
+
+bool test = false;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,7 +59,11 @@
     //[reader setCompletionWithBlock:^(NSString *resultAsString) {
     //    NSLog(@"%@", resultAsString);
     //}];
-    [self presentViewController:vc animated:YES completion:NULL];
+    
+    if(!test){
+        test = true;
+        [self presentViewController:vc animated:YES completion:NULL];
+    }
 }
 
 - (void)viewDidLoad
@@ -203,6 +212,18 @@
     }
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ShowForm"]) {
+        UINavigationController *conroller = (UINavigationController *)segue.destinationViewController;
+        InventoryInput *vc = [conroller.viewControllers firstObject];
+
+        NSArray<NSString *> *items = [self.qrResult componentsSeparatedByString:@","];
+        vc.qrItem = items[0];
+        vc.qrCategoryName = items[1];
+        vc.qrQuantity = items[2];
+    }
+}
+
 #pragma mark -
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
 
@@ -224,9 +245,11 @@
 - (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
 {
     [self dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"%@", result);
+        _qrResult = result;
+        [self performSegueWithIdentifier:@"ShowForm" sender:self];
     }];
 }
+
 
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader
 {
