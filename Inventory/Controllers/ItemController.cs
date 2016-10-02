@@ -113,7 +113,9 @@ namespace Inventory.Controllers
                 mconn.Open();
 
                 MySqlCommand command = mconn.CreateCommand();
-                command.CommandText = "select count(*) from Items where ItemId = " + item.ItemId;
+                command.CommandText = "select count(*) from Items where Name = " + item.Name 
+                    + " AND CategoryId = " +item.CategoryId + " AND Age = "+item.Age+" AND "
+                    + "Size = " + item.Size + " AND Gender = "+item.Gender+")";
 
                int rowscount = Convert.ToInt32(command.ExecuteScalar());
                
@@ -152,7 +154,10 @@ namespace Inventory.Controllers
                 mconn.Open();
 
                 MySqlCommand command = mconn.CreateCommand();
-                command.CommandText = "Update Items Set Name = '" + item.Name + "' Where ItemId = " + item.ItemId;
+                command.CommandText = "Update Items Set Name = '" + item.Name + "', CategoryId = " + item.CategoryId + ", "
+                                     +"Price = " + item.Price + ", LowLimit = " + item.LowLimit +", "
+                                     +"Age = '" + item.Age + "', Gender = '" + item.Gender + "', Size = '" + item.Size + "' "
+                                    + " Where ItemId = " + item.ItemId;
                 var output = command.ExecuteNonQuery();
                 if (output != 1)
                 {
