@@ -7,5 +7,8 @@
     <h4>Create Category</h4>
 </div>
 
-
+@using (Html.BeginForm("Create", "Category", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+     @Html.Partial("_Edit")
+}
 
