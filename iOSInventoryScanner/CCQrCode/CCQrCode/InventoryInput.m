@@ -26,9 +26,9 @@
 -(void)viewDidLoad{
     //do a get and pull the data.
 
-    _itemName.text = @"Diapers";
-    _categoryName.text = @"Baby Items";
-    _quantity.text = @"10";
+    _itemName.text = self.qrItem;
+    _categoryName.text = self.qrCategoryName;
+    _quantity.text = self.qrQuantity;
     [self.tableView reloadData];
 }
 

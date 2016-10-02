@@ -8,6 +8,7 @@
 
 #import "QRSCannerController.h"
 #import "QRCodeReaderViewController.h"
+#import "InventoryInput.h"
 
 @interface QRSCannerController ()
 
@@ -16,6 +17,7 @@
 @property (strong, nonatomic) AVCaptureMetadataOutput* output;
 @property (strong, nonatomic) AVCaptureSession* session;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer* preview;
+@property NSString* qrResult;
 
 @end
 
@@ -60,20 +62,16 @@ bool test = false;
     
     if(!test){
         test = true;
-        [self performSegueWithIdentifier:@"ShowForm" sender:self];
-        //[self presentViewController:vc animated:YES completion:NULL];
+        [self presentViewController:vc animated:YES completion:NULL];
     }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    /*[self dismissViewControllerAnimated:YES completion:^{
-        [self performSegueWithIdentifier:@"ShowForm" sender:self];
-    }]*/;/*
     if([self isCameraAvailable]) {
         [self setupScanner];
-    }*/
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -214,6 +212,18 @@ bool test = false;
     }
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ShowForm"]) {
+        UINavigationController *conroller = (UINavigationController *)segue.destinationViewController;
+        InventoryInput *vc = [conroller.viewControllers firstObject];
+
+        NSArray<NSString *> *items = [self.qrResult componentsSeparatedByString:@","];
+        vc.qrItem = items[0];
+        vc.qrCategoryName = items[1];
+        vc.qrQuantity = items[2];
+    }
+}
+
 #pragma mark -
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
 
@@ -235,6 +245,7 @@ bool test = false;
 - (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
 {
     [self dismissViewControllerAnimated:YES completion:^{
+        _qrResult = result;
         [self performSegueWithIdentifier:@"ShowForm" sender:self];
     }];
 }

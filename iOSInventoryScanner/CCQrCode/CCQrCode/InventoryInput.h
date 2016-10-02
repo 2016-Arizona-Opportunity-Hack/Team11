@@ -12,6 +12,9 @@
 
 @interface InventoryInput:UITableViewController
 
+@property(readwrite) NSString* qrItem;
+@property(readwrite) NSString* qrCategoryName;
+@property(readwrite) NSString* qrQuantity;
 
 
 @end
