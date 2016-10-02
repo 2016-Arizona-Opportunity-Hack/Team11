@@ -12,13 +12,13 @@
             <div class="col-sm-6 col-md-3">
                 <div class="project-inner">
                     
-                       
                         <div class="project-caption">
-                            @if (@service.Quantity < 10)
+                            @if (@service.Quantity < @service.ItemLowLimit)
                             {
                             <div class="project-details" style="color:#ff0000">
                                 <p><i class="fa fa-plus fa-lg"></i></p>
                                 <h3>@service.ItemName</h3>
+                                <p>@service.LocationName</p>
                                 <p><small>@service.Quantity</small></p>
                             </div>
                             
@@ -27,7 +27,8 @@
                             {
                             <div class="project-details">
                                 <p><i class="fa fa-plus fa-lg"></i></p>
-                                <h3>@service.ItemName</h3>
+                                <p>@service.ItemName</p>
+                                
                                 <p><small>@service.Quantity</small></p>
                             </div>
                             }

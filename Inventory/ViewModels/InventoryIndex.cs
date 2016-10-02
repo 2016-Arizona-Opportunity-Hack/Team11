@@ -16,5 +16,6 @@ namespace Inventory.ViewModels
         public string ItemGender { get; set; }
         public string ItemSize { get; set; }
         public string ItemAge { get; set; }
+        public int ItemLowLimit { get; set; }
     }
 }
