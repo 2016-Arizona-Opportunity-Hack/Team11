@@ -71,7 +71,8 @@ namespace Inventory.Controllers
         public List<Item> GetItems(MySqlConnection mconn)
         {
             MySqlCommand command = mconn.CreateCommand();
-            command.CommandText = "SELECT Items.ItemId, Items.CategoryId, Items.Name, Gender, Size, Price, LowLimit, Age from Items";
+            command.CommandText = "SELECT Items.CategoryId, Items.ItemId, Items.Price, Items.Gender, Items.Size, Items.LowLimit, Items.Age, Items.Name, Categories.CategoryId AS catID, Categories.CategoryName"
+                                   +" FROM Items INNER JOIN Categories ON Items.CategoryId = Categories.CategoryId";
             MySqlDataReader reader = command.ExecuteReader();
             var result = new List<Item>();
             while (reader.Read())
@@ -80,6 +81,7 @@ namespace Inventory.Controllers
                 {
                     ItemId = reader.GetInt32("ItemId"),
                     CategoryId = reader.GetInt32("CategoryId"),
+                    CategoryName = reader.GetString("CategoryName"),
                     Name = reader.GetString("Name"),
                     Gender = reader.GetString("Gender"),
                     Size = reader.GetString("Size"),
