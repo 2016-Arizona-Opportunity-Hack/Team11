@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace Inventory.Controllers
 {
-    public class ItemController : Controller
+    public class ItemController : BaseController
     {
 
         // GET: /Category/
@@ -20,14 +20,10 @@ namespace Inventory.Controllers
 
             MySqlCommand command = mconn.CreateCommand();
             command.CommandText = "select * from Items";
-            MySqlDataReader reader = command.ExecuteReader();
-            var result = new List<Item>();
-            while (reader.Read())
-            {
-                result.Add(new Item() { CategoryId = reader.GetInt32(0), ItemId = reader.GetInt32(1), Name = reader.GetString(2), Gender = reader.GetString(3), Size = reader.GetString(4), Age = reader.GetString(5), LowLimit = reader.GetInt32(6), Price = reader.GetDecimal(7)});
-            }
+            //MySqlDataReader reader = command.ExecuteReader();
+            var result = GetItems(mconn);
 
-            reader.Close();
+            //reader.Close();
             return View(result);
         }
 
@@ -46,14 +42,14 @@ namespace Inventory.Controllers
 
             while (reader.Read())
             {
-                item.CategoryId = reader.GetInt32(0);
-                item.ItemId = reader.GetInt32(1);
-                item.Name = reader.GetString(2);
-                item.Gender = reader.GetString(3);
-                item.Size = reader.GetString(4);
-                item.Age = reader.GetString(5);
-                item.LowLimit = reader.GetInt32(6);
-                item.Price = reader.GetDecimal(7);
+                item.CategoryId = reader.GetInt32("CategoryId");
+                item.ItemId = reader.GetInt32("ItemId");
+                item.Name = reader.GetString("Name");
+                item.Gender = reader.GetString("Gender");
+                item.Size = reader.GetString("Size");
+                item.Age = reader.GetString("Age");
+                item.LowLimit = reader.GetInt32("LowLimit");
+                item.Price = reader.GetDecimal("Price");
             }
 
             reader.Close();
