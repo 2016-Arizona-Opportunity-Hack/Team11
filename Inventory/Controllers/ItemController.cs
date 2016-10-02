@@ -59,6 +59,7 @@ namespace Inventory.Controllers
         public ActionResult Create()
         {
             var newItem = new Item();
+            newItem.IsDeleted = 0;
             return View(newItem);
         }
 
@@ -75,14 +76,22 @@ namespace Inventory.Controllers
             try
             {
                 mconn.Open();
-
+                String outi = "Hi " + item.Name + item.CategoryId;
                 MySqlCommand command = mconn.CreateCommand();
-                command.CommandText = "Insert into Items (ItemId) values ('"+item.ItemId+"')";
+                command.CommandText = "INSERT INTO Items (CategoryId, Name, Price, "
+                                    + "LowLimit, Gender, Age, Size, ModifiedBy, "
+                                    + "Timestamp, IsDeleted) "
+                                    + "values ("+item.CategoryId+", "+item.Name+", "+item.Price
+                                    + ", "+item.LowLimit+", "+item.Gender+"', '"+item.Age+"' , '"+item.Size
+                                    + "', "+item.ModifiedBy+", "+item.Timestamp+", "+item.IsDeleted+");"; 
                 var output=command.ExecuteNonQuery();
                 if (output != 1) {
+                    Console.Out.Write("Fail to write item");
                 }
             }
-            catch (Exception e) { }
+            catch (Exception e) {               
+                Console.Out.Write("Fail to write item");               
+            }
             finally {
                 if (mconn.State == System.Data.ConnectionState.Open)
                     mconn.Close();
