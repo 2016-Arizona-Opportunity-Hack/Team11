@@ -128,6 +128,16 @@ namespace Inventory.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Alert()
+        {
+            var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
+            MySqlConnection mconn = new MySqlConnection(strConnString);
+            mconn.Open();
+            var results = GetInventories(mconn);
+            var sortedResults = results.OrderBy(c => c.Quantity);
+            return View(sortedResults);
+        }
+
         public ActionResult Add()
         {
             var strConnString = ConfigurationManager.ConnectionStrings["Development"].ConnectionString;
