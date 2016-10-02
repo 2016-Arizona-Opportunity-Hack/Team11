@@ -1,10 +1,7 @@
-﻿<script src="@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")"></script>
-@Styles.Render("~/Content/css")
-@Styles.Render("~/Content/themes/base/css")
-@Scripts.Render("~/bundles/modernizr")
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@Scripts.Render("~/bundles/jqueryui")
+﻿@Scripts.Render("~/bundles/jquery")
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -19,10 +16,10 @@
 <br/>
 
 <button class=".btn-default" id="btnsubmit" >Submit</button>
-@Scripts.Render("~/bundles/jquery")
+
 
 <script>
-    $("#needDate").datepicker();
+    $("#needDate").datepicker({ inline: false });
 
 </script>
 
